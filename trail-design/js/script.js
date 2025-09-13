@@ -122,7 +122,10 @@
       });
     }
 
-    // Itinerary stepper
+
+    // Itinerary stepper section
+
+
     var steps = [
       {
         title: 'Day 1: Arrival & Colombo City Tour',
@@ -188,12 +191,14 @@
     if (nextBtn) nextBtn.addEventListener('click', function() { renderStep(current + 1); });
     renderStep(0);
 
+    
     // Detailed Schedule accordion (toggle one at a time)
+
     var toggles = document.querySelectorAll('.schedule-toggle');
     var panels = document.querySelectorAll('.schedule-panel');
     function closeAllPanels() {
       panels.forEach(function(panel) {
-        panel.style.maxHeight = null;
+        panel.style.maxHeight = '0px';
         panel.classList.remove('open');
       });
       toggles.forEach(function(btn) { btn.setAttribute('aria-expanded', 'false'); });
@@ -201,8 +206,12 @@
     function openPanel(btn, panel) {
       btn.setAttribute('aria-expanded', 'true');
       panel.classList.add('open');
-      panel.style.maxHeight = panel.scrollHeight + 'px';
+      // Set a large max-height to allow content to show
+      panel.style.maxHeight = '2000px';
     }
+    // Initialize all panels as closed
+    closeAllPanels();
+    
     toggles.forEach(function(btn) {
       btn.addEventListener('click', function() {
         var targetId = btn.getAttribute('aria-controls');
@@ -213,11 +222,5 @@
         if (!isOpen) openPanel(btn, panel);
       });
     });
-    // Optionally open Day 1 by default
-    var firstToggle = document.querySelector('.schedule-toggle');
-    if (firstToggle) {
-      var firstPanel = document.getElementById(firstToggle.getAttribute('aria-controls'));
-      if (firstPanel) openPanel(firstToggle, firstPanel);
-    }
   });
 })();
